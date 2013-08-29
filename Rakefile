@@ -5,7 +5,7 @@ require 'rubygems'
 require 'rake/testtask'
 require "sdoc_site/automation"
 
-task :default => :test
+task default: :test
 
 desc "Run tests"
 Rake::TestTask.new("test") do |t|
@@ -17,34 +17,29 @@ end
 
 desc "Generate sdoc for all new versions"
 task :build_new_docs do
-  a = SDocSite::Automation.new full_path, {:debug => 1}
-  a.build_new_docs
-  a.generate_index
+  automation.build_new_docs
+  automation.generate_index
 end
 
 desc "Rebuild sdoc for ENV[name], ENV[version]"
 task :rebuild_version do
-  a = SDocSite::Automation.new full_path, {:debug => 1}
-  a.rebuild_version ENV["name"], ENV["version"]
-  a.generate_index
+  automation.rebuild_version ENV["name"], ENV["version"]
+  automation.generate_index
 end
 
 desc "Generate index.html"
 task :generate_index do
-  a = SDocSite::Automation.new full_path, {:debug => 1}
-  a.generate_index
+  automation.generate_index
 end
 
 desc "Merges ENV[builds]"
 task :merge_builds do
-  a = SDocSite::Automation.new full_path, {:debug => 1}
-  a.merge_builds SDocSite::Builds::MergedBuild.from_str(ENV["builds"])
-  a.generate_index
+  automation.merge_builds SDocSite::Builds::MergedBuild.from_str(ENV["builds"])
+  automation.generate_index
 end
 
 desc "Remerge all merged builds"
 task :remerge_all_builds do
-  a = SDocSite::Automation.new full_path, {:debug => 1}
   builds.merged_builds.each do |build|
     begin
       ENV['builds'] = build.to_s
@@ -61,14 +56,12 @@ end
 
 desc "Cleanup oldies"
 task :cleanup_oldies do
-  a = SDocSite::Automation.new full_path, {:debug => 1}
-  a.cleanup_oldies
-  a.generate_index
+  automation.cleanup_oldies
+  automation.generate_index
 end
 
 desc "Remerge all merged builds"
 task :rebuild_all_docs do
-  a = SDocSite::Automation.new full_path, {:debug => 1}
   builds.simple_builds.each do |build|
     build.versions.each do |version|
       begin
@@ -92,6 +85,10 @@ end
 
 def full_path
   File.expand_path(docs_path)
+end
+
+def automation
+  @automation ||= SDocSite::Automation.new full_path, {:debug => 1}
 end
 
 def builds
