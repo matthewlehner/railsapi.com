@@ -44,7 +44,6 @@ end
 
 desc "Remerge all merged builds"
 task :remerge_all_builds do
-  builds = SDocSite::Builds::List.new docs_path
   a = SDocSite::Automation.new full_path, {:debug => 1}
   builds.merged_builds.each do |build|
     begin
@@ -69,7 +68,6 @@ end
 
 desc "Remerge all merged builds"
 task :rebuild_all_docs do
-  builds = SDocSite::Builds::List.new docs_path
   a = SDocSite::Automation.new full_path, {:debug => 1}
   builds.simple_builds.each do |build|
     build.versions.each do |version|
@@ -94,6 +92,10 @@ end
 
 def full_path
   File.expand_path(docs_path)
+end
+
+def builds
+  @builds ||= SDocSite::Builds::List.new docs_path
 end
 
 # `~/code/sdoc/bin/sdoc -N -o rdoc -x irb/output-method.rb -x ext/win32ole/tests/ -x ext/win32ole/sample/ README *.c *.h lib/ ext/`
