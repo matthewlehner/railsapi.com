@@ -1,7 +1,7 @@
 require "test_helper"
 require "sdoc_site/version"
 
-class VersionTest < Test::Unit::TestCase
+class VersionTest < Minitest::Unit
   include SDocSite
   
   def test_should_compare

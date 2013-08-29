@@ -1,7 +1,7 @@
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
-require "test/unit"
+require "minitest/autorun"
 require 'rubygems'
-require 'mocha'
+require 'mocha/setup'
 
 
 def fixtures_path (path)

@@ -1,7 +1,7 @@
 require "test_helper"
 require "sdoc_site/builds"
 
-class BuildsMergedBuildTest < Test::Unit::TestCase
+class BuildsMergedBuildTest < Minitest::Unit
   include SDocSite::Builds
   
   def test_should_equal_merged_builds_in_any_order

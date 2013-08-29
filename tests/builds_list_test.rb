@@ -1,7 +1,7 @@
 require "test_helper"
 require "sdoc_site/builds"
 
-class BuildsTest < Test::Unit::TestCase
+class BuildsTest < Minitest::Unit
   include SDocSite
   
   def test_should_return_all_simple_builds

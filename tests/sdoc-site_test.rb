@@ -6,7 +6,7 @@ require "sdoc_site/automation"
 
 set :environment, :test
 
-class SDocSiteTest < Test::Unit::TestCase
+class SDocSiteTest < Minitest::Unit
   include Rack::Test::Methods
   
   def app

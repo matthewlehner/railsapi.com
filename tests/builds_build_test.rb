@@ -2,7 +2,7 @@ require "test_helper"
 require "sdoc_site/builds"
 
 
-class BuildsBuildTest < Test::Unit::TestCase
+class BuildsBuildTest < Minitest::Test
   include SDocSite
   include SDocSite::Builds
   
@@ -20,7 +20,7 @@ class BuildsBuildTest < Test::Unit::TestCase
     first.versions << Version.new('v1.2')
     second = Build.from_str('a-v1.1')
     
-    assert_not_equal(first, second)
+    refute_equal(first, second)
   end
   
   def test_should_order_builds
