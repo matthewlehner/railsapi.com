@@ -18,13 +18,13 @@ end
 desc "Generate sdoc for all new versions"
 task :build_new_docs do
   automation.build_new_docs
-  automation.generate_index
+  Rake::Task['generate_index'].invoke
 end
 
 desc "Rebuild sdoc for ENV[name], ENV[version]"
 task :rebuild_version do
   automation.rebuild_version ENV["name"], ENV["version"]
-  automation.generate_index
+  Rake::Task['generate_index'].invoke
 end
 
 desc "Generate index.html"
@@ -35,7 +35,7 @@ end
 desc "Merges ENV[builds]"
 task :merge_builds do
   automation.merge_builds SDocSite::Builds::MergedBuild.from_str(ENV["builds"])
-  automation.generate_index
+  Rake::Task['generate_index'].invoke
 end
 
 desc "Remerge all merged builds"
@@ -57,7 +57,7 @@ end
 desc "Cleanup oldies"
 task :cleanup_oldies do
   automation.cleanup_oldies
-  automation.generate_index
+  Rake::Task['generate_index'].invoke
 end
 
 desc "Remerge all merged builds"
