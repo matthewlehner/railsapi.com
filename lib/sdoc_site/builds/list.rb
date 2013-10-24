@@ -39,6 +39,10 @@ module SDocSite
         merged_builds.select { |b| b.same_names?(names) }
       end
 
+      def build_present?(dir_name)
+        simple_builds_dirs.include?(dir_name) || merged_builds_dirs.include?(dir_name)
+      end
+
       protected
       def select_dirs regexp
         Dir.new(@root).select do |name|
